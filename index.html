@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
+  <title>Phone Number Form</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Plus+Jakarta+Sans:wght@300;400;700&display=swap"
+    rel="stylesheet">
+  <style>
+    /* CSS styles */
+    body {
+      font-family: Montserrat;
+      margin: 0;
+    }
+
+    input {
+      font-family: Montserrat;
+    }
+
+    select {
+      font-family: Montserrat;
+    }
+
+    option {
+      font-family: Montserrat;
+    }
+
+    .rc-anchor-center-item {
+      font-family: Montserrat !important;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      flex-direction: column;
+    }
+
+    input[type='text'] {
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 8px 16px;
+      font-size: 16px;
+      background-color: #bf5940;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    .flag-icon {
+      width: 20px;
+      height: 15px;
+      margin-right: 5px;
+    }
+
+    select {
+      padding: 8px;
+      font-size: 16px;
+    }
+
+    .inputcontainer {
+      display: flex;
+    }
+
+    #countryCode {
+      border-right: 0px;
+      width: 114px;
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+      border-color: #ccc;
+    }
+
+    #phoneNumber {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
+      /* border-radius: 6px; */
+      width: 100%;
+      border-color: #ccc;
+    }
+
+    .inform {
+      height: 400px;
+      width: 400px;
+      margin: auto;
+      object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+      .inform {
+        height: 260px;
+        width: 100%;
+        margin: auto;
+        object-fit: contain;
+      }
+    }
+
+    .img-container {
+      /* width: 100%; */
+      object-fit: cover;
+      margin: auto 0;
+    }
+
+    #phoneNumberForm {
+      display: flex;
+      flex-direction: row;
+      max-width: 900px;
+      width: 100%;
+      gap: 62px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .box {
+      min-width: 24px;
+      min-height: 24px;
+    }
+
+    .tick {
+      height: 32px;
+      width: 32px;
+    }
+
+    .flexed {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: left;
+    }
+
+    .form-class {
+      display: flex !important;
+      flex-direction: column !important;
+      margin: auto;
+    }
+
+    .container-1 {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      gap: 16px;
+      margin: 0 16px;
+    }
+
+    .heading-1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #bf5940;
+    }
+
+    .listing {
+      gap: 8px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .enter-num {
+      font-weight: 600;
+    }
+
+    .choose {
+      border: 1px solid black;
+      padding: 0 12px;
+      cursor: pointer;
+    }
+
+    .inp {
+      padding: 0 16px;
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+    }
+
+    .fill {
+      /* bg-red-200 !hidden rounded py-1 px-2 text-sm sm:text-md */
+      /* bg-red-200 !hidden rounded py-1 px-2 text-sm sm:text-md */
+      background-color: #fde2e2;
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-size: 12px;
+    }
+
+    @media (min-width: 768px) {
+      .fill {
+        font-size: 14px;
+      }
+
+      .form-class {
+        flex-direction: row !important;
+      }
+    }
+
+    @media (max-width: 768px) {}
+
+    .inputcontainer {
+      width: 100%;
+    }
+
+    .subm {
+      width: 100%;
+      font-family: Montserrat;
+    }
+
+    .button-image {
+      height: 24px;
+      width: 24px;
+    }
+
+    .animate-spin {
+      animation: spin 1s linear infinite;
+    }
+
+    .spin {
+      border-top: 2px solid white;
+      border-radius: 100%;
+    }
+
+    .subm {
+      background: #bf5940;
+      color: white;
+      display: flex;
+      padding: 16px 24px;
+      font-weight: 600;
+      font-size: 18px;
+      justify-content: space-between;
+      border-radius: 0 !important;
+    }
+
+    .spin {
+      animation: spin 1s infinite linear;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <form id="phoneNumberForm" method="post" class="form-class">
+    <div class="img-container">
+      <img src="https://res.cloudinary.com/drcgvxlsi/image/upload/v1693495239/Decipher_Facts_from_4_of1kov.png"
+        class="inform" />
+    </div>
+    <div class="container-1">
+      <div>
+        <p class=" heading-1">
+          IN 5 DAYS LEARN HOW TO:
+        </p>
+      </div>
+      <div class="flex flex-col gap-2 listing">
+        <p class="flexed"><img class="tick"
+            src="https://res.cloudinary.com/drcgvxlsi/image/upload/v1693495239/Decipher_Facts_from_j1cazm.svg"> SPOT
+          MISINFORMATION</p>
+        <p class="flexed"><img class="tick"
+            src="https://res.cloudinary.com/drcgvxlsi/image/upload/v1693495239/Decipher_Facts_from_j1cazm.svg"> USE
+          TOOLS TO VERIFY CONTACT</p>
+        <p class="flexed"><img class="tick"
+            src="https://res.cloudinary.com/drcgvxlsi/image/upload/v1693495239/Decipher_Facts_from_j1cazm.svg">
+          INDENTIFY MANIPULATED INFO</p>
+        <p class="flexed"><img class="tick"
+            src="https://res.cloudinary.com/drcgvxlsi/image/upload/v1693495239/Decipher_Facts_from_j1cazm.svg"> FIND
+          TRUSTWORTHY SOURCES</p>
+        <p class="flexed"><img class="tick"
+            src="https://res.cloudinary.com/drcgvxlsi/image/upload/v1693495239/Decipher_Facts_from_j1cazm.svg"> IMPROVE
+          DIGITAL SAVINESS</p>
+      </div>
+      <p class="enter-num">Enter your phone number:</p>
+      <div class="inputcontainer">
+        <select id="countryCode" class="choose select-box">
+          <!-- <option value="">Select Country Code</option> -->
+          <!-- JavaScript will populate the options here -->
+        </select>
+        <input type="text" id="phoneNumber" placeholder="Enter number" class=" inp" />
+      </div>
+      <div class="g-recaptcha" data-sitekey="6LdaMrsnAAAAAEEUKgrIsnKY2VAN7RopC1kyl_Lx"
+        data-callback="onRecaptchaSuccess" data-expired-callback="onRecaptchaResponseExpiry"
+        data-error-callback="onRecaptchaError" data-action="LOGIN"></div>
+      <!-- Recaptcha Error -->
+      <div id="recaptcha-form-error" class="hidden fill">
+        Please fill the recaptcha checkbox above.
+      </div>
+
+      <button type="submit" id="submitButton" class="subm">
+        <span>START NOW</span>
+        <div id="spinnerContainer" class="box ml-2">
+          <div id="spinner" class="spin box hidden"></div>
+        </div>
+        <img src="https://res.cloudinary.com/drcgvxlsi/image/upload/v1692608027/arr_urifpx.png" class=" button-image" />
+      </button>
+    </div>
+  </form>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    const countryCodes = [
+      { code: 'United States', value: '+1', flag: '🇺🇸' },
+      { code: 'Afghanistan', value: '+93', flag: '🇦🇫' },
+      { code: 'Albania', value: '+355', flag: '🇦🇱' },
+      { code: 'Algeria', value: '+213', flag: '🇩🇿' },
+      { code: 'Andorra', value: '+376', flag: '🇦🇩' },
+      { code: 'Angola', value: '+244', flag: '🇦🇴' },
+      { code: 'Antigua and Barbuda', value: '+1-268', flag: '🇦🇬' },
+      { code: 'Argentina', value: '+54', flag: '🇦🇷' },
+      { code: 'Armenia', value: '+374', flag: '🇦🇲' },
+      { code: 'Australia', value: '+61', flag: '🇦🇺' },
+      { code: 'Austria', value: '+43', flag: '🇦🇹' },
+      { code: 'Azerbaijan', value: '+994', flag: '🇦🇿' },
+      { code: 'Bahamas', value: '+1-242', flag: '🇧🇸' },
+      { code: 'Bahrain', value: '+973', flag: '🇧🇭' },
+      { code: 'Bangladesh', value: '+880', flag: '🇧🇩' },
+      { code: 'Barbados', value: '+1-246', flag: '🇧🇧' },
+      { code: 'Belarus', value: '+375', flag: '🇧🇾' },
+      { code: 'Belgium', value: '+32', flag: '🇧🇪' },
+      { code: 'Belize', value: '+501', flag: '🇧🇿' },
+      { code: 'Benin', value: '+229', flag: '🇧🇯' },
+      { code: 'Bhutan', value: '+975', flag: '🇧🇹' },
+      { code: 'Bolivia', value: '+591', flag: '🇧🇴' },
+      { code: 'Bosnia and Herzegovina', value: '+387', flag: '🇧🇦' },
+      { code: 'Botswana', value: '+267', flag: '🇧🇼' },
+      { code: 'Brazil', value: '+55', flag: '🇧🇷' },
+      { code: 'Brunei', value: '+673', flag: '🇧🇳' },
+      { code: 'Bulgaria', value: '+359', flag: '🇧🇬' },
+      { code: 'Burkina Faso', value: '+226', flag: '🇧🇫' },
+      { code: 'Burundi', value: '+257', flag: '🇧🇮' },
+      { code: 'Cambodia', value: '+855', flag: '🇰🇭' },
+      { code: 'Cameroon', value: '+237', flag: '🇨🇲' },
+      { code: 'Canada', value: '+1', flag: '🇨🇦' },
+      { code: 'Cape Verde', value: '+238', flag: '🇨🇻' },
+      { code: 'Central African Republic', value: '+236', flag: '🇨🇫' },
+      { code: 'Chad', value: '+235', flag: '🇹🇩' },
+      { code: 'Chile', value: '+56', flag: '🇨🇱' },
+      { code: 'China', value: '+86', flag: '🇨🇳' },
+      { code: 'Colombia', value: '+57', flag: '🇨🇴' },
+      { code: 'Comoros', value: '+269', flag: '🇰🇲' },
+      { code: 'Congo (Brazzaville)', value: '+242', flag: '🇨🇬' },
+      { code: 'Congo (Kinshasa)', value: '+243', flag: '🇨🇩' },
+      { code: 'Costa Rica', value: '+506', flag: '🇨🇷' },
+      { code: "Cote d'Ivoire", value: '+225', flag: '🇨🇮' },
+      { code: 'Croatia', value: '+385', flag: '🇭🇷' },
+      { code: 'Cuba', value: '+53', flag: '🇨🇺' },
+      { code: 'Cyprus', value: '+357', flag: '🇨🇾' },
+      { code: 'Czech Republic', value: '+420', flag: '🇨🇿' },
+      { code: 'Denmark', value: '+45', flag: '🇩🇰' },
+      { code: 'Djibouti', value: '+253', flag: '🇩🇯' },
+      { code: 'Dominica', value: '+1-767', flag: '🇩🇲' },
+      {
+        code: 'Dominican Republic',
+        value: '+1-809, +1-829, +1-849',
+        flag: '🇩🇴',
+      },
+      { code: 'East Timor', value: '+670', flag: '🇹🇱' },
+      { code: 'Ecuador', value: '+593', flag: '🇪🇨' },
+      { code: 'Egypt', value: '+20', flag: '🇪🇬' },
+      { code: 'El Salvador', value: '+503', flag: '🇸🇻' },
+      { code: 'Equatorial Guinea', value: '+240', flag: '🇬🇶' },
+      { code: 'Eritrea', value: '+291', flag: '🇪🇷' },
+      { code: 'Estonia', value: '+372', flag: '🇪🇪' },
+      { code: 'Ethiopia', value: '+251', flag: '🇪🇹' },
+      { code: 'Fiji', value: '+679', flag: '🇫🇯' },
+      { code: 'Finland', value: '+358', flag: '🇫🇮' },
+      { code: 'France', value: '+33', flag: '🇫🇷' },
+      { code: 'Gabon', value: '+241', flag: '🇬🇦' },
+      { code: 'Gambia', value: '+220', flag: '🇬🇲' },
+      { code: 'Georgia', value: '+995', flag: '🇬🇪' },
+      { code: 'Germany', value: '+49', flag: '🇩🇪' },
+      { code: 'Ghana', value: '+233', flag: '🇬🇭' },
+      { code: 'Greece', value: '+30', flag: '🇬🇷' },
+      { code: 'Grenada', value: '+1-473', flag: '🇬🇩' },
+      { code: 'Guatemala', value: '+502', flag: '🇬🇹' },
+      { code: 'Guinea', value: '+224', flag: '🇬🇳' },
+      { code: 'Guinea-Bissau', value: '+245', flag: '🇬🇼' },
+      { code: 'Guyana', value: '+592', flag: '🇬🇾' },
+      { code: 'Haiti', value: '+509', flag: '🇭🇹' },
+      { code: 'Honduras', value: '+504', flag: '🇭🇳' },
+      { code: 'Hungary', value: '+36', flag: '🇭🇺' },
+      { code: 'Iceland', value: '+354', flag: '🇮🇸' },
+      { code: 'India', value: '+91', flag: '🇮🇳' },
+      { code: 'Indonesia', value: '+62', flag: '🇮🇩' },
+      { code: 'Iran', value: '+98', flag: '🇮🇷' },
+      { code: 'Iraq', value: '+964', flag: '🇮🇶' },
+      { code: 'Ireland', value: '+353', flag: '🇮🇪' },
+      { code: 'Israel', value: '+972', flag: '🇮🇱' },
+      { code: 'Italy', value: '+39', flag: '🇮🇹' },
+      { code: 'Jamaica', value: '+1-876', flag: '🇯🇲' },
+      { code: 'Japan', value: '+81', flag: '🇯🇵' },
+      { code: 'Jordan', value: '+962', flag: '🇯🇴' },
+      { code: 'Kazakhstan', value: '+7', flag: '🇰🇿' },
+      { code: 'Kenya', value: '+254', flag: '🇰🇪' },
+      { code: 'Kiribati', value: '+686', flag: '🇰🇮' },
+      { code: 'Korea, North', value: '+850', flag: '🇰🇵' },
+      { code: 'Korea, South', value: '+82', flag: '🇰🇷' },
+      { code: 'Kuwait', value: '+965', flag: '🇰🇼' },
+      { code: 'Kyrgyzstan', value: '+996', flag: '🇰🇬' },
+      { code: 'Laos', value: '+856', flag: '🇱🇦' },
+      { code: 'Latvia', value: '+371', flag: '🇱🇻' },
+      { code: 'Lebanon', value: '+961', flag: '🇱🇧' },
+      { code: 'Lesotho', value: '+266', flag: '🇱🇸' },
+      { code: 'Liberia', value: '+231', flag: '🇱🇷' },
+      { code: 'Libya', value: '+218', flag: '🇱🇾' },
+      { code: 'Liechtenstein', value: '+423', flag: '🇱🇮' },
+      { code: 'Lithuania', value: '+370', flag: '🇱🇹' },
+      { code: 'Luxembourg', value: '+352', flag: '🇱🇺' },
+      { code: 'North Macedonia', value: '+389', flag: '🇲🇰' },
+      { code: 'Madagascar', value: '+261', flag: '🇲🇬' },
+      { code: 'Malawi', value: '+265', flag: '🇲🇼' },
+      { code: 'Malaysia', value: '+60', flag: '🇲🇾' },
+      { code: 'Maldives', value: '+960', flag: '🇲🇻' },
+      { code: 'Mali', value: '+223', flag: '🇲🇱' },
+      { code: 'Malta', value: '+356', flag: '🇲🇹' },
+      { code: 'Marshall Islands', value: '+692', flag: '🇲🇭' },
+      { code: 'Mauritania', value: '+222', flag: '🇲🇷' },
+      { code: 'Mauritius', value: '+230', flag: '🇲🇺' },
+      { code: 'Mexico', value: '+52', flag: '🇲🇽' },
+      { code: 'Micronesia', value: '+691', flag: '🇫🇲' },
+      { code: 'Moldova', value: '+373', flag: '🇲🇩' },
+      { code: 'Monaco', value: '+377', flag: '🇲🇨' },
+      { code: 'Mongolia', value: '+976', flag: '🇲🇳' },
+      { code: 'Montenegro', value: '+382', flag: '🇲🇪' },
+      { code: 'Morocco', value: '+212', flag: '🇲🇦' },
+      { code: 'Mozambique', value: '+258', flag: '🇲🇿' },
+      { code: 'Myanmar', value: '+95', flag: '🇲🇲' },
+      { code: 'Namibia', value: '+264', flag: '🇳🇦' },
+      { code: 'Nauru', value: '+674', flag: '🇳🇷' },
+      { code: 'Nepal', value: '+977', flag: '🇳🇵' },
+      { code: 'Netherlands', value: '+31', flag: '🇳🇱' },
+      { code: 'New Zealand', value: '+64', flag: '🇳🇿' },
+      { code: 'Nicaragua', value: '+505', flag: '🇳🇮' },
+      { code: 'Niger', value: '+227', flag: '🇳🇪' },
+      { code: 'Nigeria', value: '+234', flag: '🇳🇬' },
+      { code: 'Niue', value: '+683', flag: '🇳🇺' },
+      { code: 'Norway', value: '+47', flag: '🇳🇴' },
+      { code: 'Oman', value: '+968', flag: '🇴🇲' },
+      { code: 'Pakistan', value: '+92', flag: '🇵🇰' },
+      { code: 'Palau', value: '+680', flag: '🇵🇼' },
+      { code: 'Palestinian Territories', value: '+970', flag: '🇵🇸' },
+      { code: 'Panama', value: '+507', flag: '🇵🇦' },
+      { code: 'Papua New Guinea', value: '+675', flag: '🇵🇬' },
+      { code: 'Paraguay', value: '+595', flag: '🇵🇾' },
+      { code: 'Peru', value: '+51', flag: '🇵🇪' },
+      { code: 'Philippines', value: '+63', flag: '🇵🇭' },
+      { code: 'Poland', value: '+48', flag: '🇵🇱' },
+      { code: 'Portugal', value: '+351', flag: '🇵🇹' },
+      { code: 'Qatar', value: '+974', flag: '🇶🇦' },
+      { code: 'Romania', value: '+40', flag: '🇷🇴' },
+      { code: 'Russia', value: '+7', flag: '🇷🇺' },
+      { code: 'Rwanda', value: '+250', flag: '🇷🇼' },
+      { code: 'Saint Kitts and Nevis', value: '+1-869', flag: '🇰🇳' },
+      { code: 'Saint Lucia', value: '+1-758', flag: '🇱🇨' },
+      {
+        code: 'Saint Vincent and the Grenadines',
+        value: '+1-784',
+        flag: '🇻🇨',
+      },
+      { code: 'Samoa', value: '+685', flag: '🇼🇸' },
+      { code: 'San Marino', value: '+378', flag: '🇸🇲' },
+      { code: 'Sao Tome and Principe', value: '+239', flag: '🇸🇹' },
+      { code: 'Saudi Arabia', value: '+966', flag: '🇸🇦' },
+      { code: 'Senegal', value: '+221', flag: '🇸🇳' },
+      { code: 'Serbia', value: '+381', flag: '🇷🇸' },
+      { code: 'Seychelles', value: '+248', flag: '🇸🇨' },
+      { code: 'Sierra Leone', value: '+232', flag: '🇸🇱' },
+      { code: 'Singapore', value: '+65', flag: '🇸🇬' },
+      { code: 'Slovakia', value: '+421', flag: '🇸🇰' },
+      { code: 'Slovenia', value: '+386', flag: '🇸🇮' },
+      { code: 'Solomon Islands', value: '+677', flag: '🇸🇧' },
+      { code: 'Somalia', value: '+252', flag: '🇸🇴' },
+      { code: 'South Africa', value: '+27', flag: '🇿🇦' },
+      { code: 'South Sudan', value: '+211', flag: '🇸🇸' },
+      { code: 'Spain', value: '+34', flag: '🇪🇸' },
+      { code: 'Sri Lanka', value: '+94', flag: '🇱🇰' },
+      { code: 'Sudan', value: '+249', flag: '🇸🇩' },
+      { code: 'Suriname', value: '+597', flag: '🇸🇷' },
+      { code: 'Sweden', value: '+46', flag: '🇸🇪' },
+      { code: 'Switzerland', value: '+41', flag: '🇨🇭' },
+      { code: 'Syria', value: '+963', flag: '🇸🇾' },
+      { code: 'Taiwan', value: '+886', flag: '🇹🇼' },
+      { code: 'Tajikistan', value: '+992', flag: '🇹🇯' },
+      { code: 'Tanzania', value: '+255', flag: '🇹🇿' },
+      { code: 'Thailand', value: '+66', flag: '🇹🇭' },
+      { code: 'Togo', value: '+228', flag: '🇹🇬' },
+      { code: 'Tonga', value: '+676', flag: '🇹🇴' },
+      { code: 'Trinidad and Tobago', value: '+1-868', flag: '🇹🇹' },
+      { code: 'Tunisia', value: '+216', flag: '🇹🇳' },
+      { code: 'Turkey', value: '+90', flag: '🇹🇷' },
+      { code: 'Turkmenistan', value: '+993', flag: '🇹🇲' },
+      { code: 'Tuvalu', value: '+688', flag: '🇹🇻' },
+      { code: 'Uganda', value: '+256', flag: '🇺🇬' },
+      { code: 'Ukraine', value: '+380', flag: '🇺🇦' },
+      { code: 'United Arab Emirates', value: '+971', flag: '🇦🇪' },
+      { code: 'United Kingdom', value: '+44', flag: '🇬🇧' },
+      { code: 'Uruguay', value: '+598', flag: '🇺🇾' },
+      { code: 'Uzbekistan', value: '+998', flag: '🇺🇿' },
+      { code: 'Vanuatu', value: '+678', flag: '🇻🇺' },
+      { code: 'Vatican City', value: '+39-06', flag: '🇻🇦' },
+      { code: 'Venezuela', value: '+58', flag: '🇻🇪' },
+      { code: 'Vietnam', value: '+84', flag: '🇻🇳' },
+      { code: 'Yemen', value: '+967', flag: '🇾🇪' },
+      { code: 'Zambia', value: '+260', flag: '🇿🇲' },
+      { code: 'Zimbabwe', value: '+263', flag: '🇿🇼' },
+    ]
+    const countryCodeDropdown = document.getElementById('countryCode')
+    countryCodes.forEach(({ value, flag, code }) => {
+      const option = document.createElement('option')
+      option.value = value
+      option.text = `${flag} ${value} ${code}`
+      countryCodeDropdown.appendChild(option)
+    })
+    // function that filters all string from a-z
+    function filterOutAlphabets(inputString) {
+      // Use a regular expression to replace all alphabets (Aa-Zz) with an empty string.
+      return inputString.replace(/[A-Za-z]/g, '');
+    }
+
+    countryCodeDropdown.addEventListener('change', function () {
+
+      const countryCode = filterOutAlphabets(this.value);
+      this.value = countryCode;
+      countryCodeDropdown.value = countryCode;
+      console.log(countryCode)
+    }
+    );
+
+
+    let isRecaptchaValidated = false;
+
+
+    function onRecaptchaSuccess() {
+      // alert("success");
+      isRecaptchaValidated = true;
+      document?.getElementById(`recaptcha-form-error`).classList?.add("hidden")
+    }
+
+    function onRecaptchaError() {
+      document?.getElementById(`recaptcha-form-error`).classList?.remove("hidden");
+
+    }
+
+    function onRecaptchaResponseExpiry() {
+      onRecaptchaError();
+    }
+    const spinnerContainer = document?.getElementById("spinnerContainer");
+
+    const spinner = document?.getElementById("spinner");
+
+    const showSpinner = () => {
+      console.log('show spinner')
+      spinnerContainer.classList.remove("hidden");
+      spinner?.classList?.remove("hidden");
+    }
+
+    const hideSpinner = () => {
+      console.log('hide spinner')
+      spinnerContainer?.classList?.add("hidden");
+      spinner?.classList?.add("hidden");
+    }
+
+    window.onload = function () {
+      const recaptchaForm = document.getElementById("phoneNumberForm");
+      recaptchaForm.addEventListener("submit", function (e) {
+
+        e.preventDefault();
+        showSpinner();
+        document.getElementById("submitButton").disabled = true;
+
+        const countryCode = document
+          .getElementById('countryCode')
+          .value.trim()
+        const phoneNumber = document
+          .getElementById('phoneNumber')
+          .value.trim()
+
+        const fullPhoneNumber = `${countryCode}${phoneNumber}`
+
+        if (phoneNumber === '') {
+          alert('Please enter a phone number.')
+          document.getElementById("submitButton").disabled = false;
+          document.getElementById(`phoneNumber`).focus();
+          hideSpinner();
+          return
+        }
+
+        // failure
+        // Toggle the visibility of the spinner
+
+        spinnerContainer.classList.remove("hidden");
+
+
+        if (!isRecaptchaValidated) {
+          document?.getElementById(`recaptcha-form-error`).classList?.remove("hidden");
+          document.getElementById("submitButton").disabled = false;
+          // Hide the spinner on error
+          spinnerContainer?.classList?.add("hidden");
+          hideSpinner();
+          return;
+        }
+        // success
+
+        // document?.getElementById(`recaptcha-form-error`).classList?.add("!hidden");
+
+
+        let data = JSON.stringify({
+          to: fullPhoneNumber,
+        })
+
+        let config = {
+          method: 'post',
+          maxBodyLength: Infinity,
+          url: 'https://qe8ty0l7zb.execute-api.us-east-1.amazonaws.com/dev/initiate',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          data: data,
+        }
+
+        axios
+          .request(config)
+          .then((response) => {
+            document.getElementById("submitButton").disabled = false;
+            hideSpinner();
+            document
+              .getElementById('phoneNumber').value = '';
+            alert('Message sent successfully.')
+          })
+          .catch((error) => {
+            console.log(error)
+            hideSpinner();
+            document.getElementById("submitButton").disabled = false;
+            alert('Unable to send.Please try again.')
+          })
+      });
+    };
+  </script>
+</body>
+
+</html>
